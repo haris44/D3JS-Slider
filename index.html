@@ -44,7 +44,7 @@
   	<p><a href="http://github.com/turban/d3.slider">http://github.com/turban/d3.slider</a></p>
 
     <h2>Default slider</h2>
-    <code>d3.slider()</code>
+    <code>d3.slider().value(25)</code>
     <div id="slider1"></div>
 
 
@@ -52,7 +52,7 @@
   <script src="d3.slider.js"></script>
   <script>
 
-    d3.select('#slider1').call(d3.slider());
+    d3.select('#slider1').call(d3.slider().value(25));
 
   </script>
 

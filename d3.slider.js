@@ -40,7 +40,7 @@ return function module() {
 
   // Private variables
   var axisScale,
-      dispatch = d3.dispatch("slide", "slideend"),
+      dispatch = d3.dispatch(),
       formatPercent = d3.format(".2%"),
       tickFormat = d3.format(".0"),
       handle1,
@@ -61,11 +61,8 @@ return function module() {
 
       // DIV container
       var div = d3.select(this).classed("d3-slider d3-slider-" + orientation, true);
-      
+
       var drag = d3.behavior.drag();
-      drag.on('dragend', function () {
-        dispatch.slideend(d3.event, value);
-      })
 
       // Slider handle
       //if range slider, create two
@@ -92,12 +89,12 @@ return function module() {
           .on("click", stopPropagation)
           .call(drag);
       }
-      
+
       // Horizontal slider
       if (orientation === "horizontal") {
 
         div.on("click", onClickHorizontal);
-        
+
         if (toType(value) == "array" && value.length == 2) {
           divRange = d3.select(this).append('div').classed("d3-slider-range", true);
 
@@ -114,7 +111,7 @@ return function module() {
           handle1.style("left", formatPercent(scale(value)));
           drag.on("drag", onDragHorizontal);
         }
-        
+
         sliderLength = parseInt(div.style("width"), 10);
 
       } else { // Vertical
@@ -137,11 +134,11 @@ return function module() {
           handle1.style("bottom", formatPercent(scale(value)));
           drag.on("drag", onDragVertical);
         }
-        
+
         sliderLength = parseInt(div.style("height"), 10);
 
       }
-      
+
       if (axis) {
         createAxis(div);
       }
@@ -199,7 +196,7 @@ return function module() {
           if (axis.orient() === "left") {
             svg.style("left", -margin + "px");
             g.attr("transform", "translate(" + margin + "," + margin + ")");
-          } else { // right          
+          } else { // right
             g.attr("transform", "translate(" + 0 + "," + margin + ")");
           }
 
@@ -212,7 +209,7 @@ return function module() {
       function onClickHorizontal() {
         if (toType(value) != "array") {
           var pos = Math.max(0, Math.min(sliderLength, d3.event.offsetX || d3.event.layerX));
-          moveHandle(scale.invert ? 
+          moveHandle(scale.invert ?
                       stepValue(scale.invert(pos / sliderLength))
                     : nearestTick(pos / sliderLength));
         }
@@ -221,7 +218,7 @@ return function module() {
       function onClickVertical() {
         if (toType(value) != "array") {
           var pos = sliderLength - Math.max(0, Math.min(sliderLength, d3.event.offsetY || d3.event.layerY));
-          moveHandle(scale.invert ? 
+          moveHandle(scale.invert ?
                       stepValue(scale.invert(pos / sliderLength))
                     : nearestTick(pos / sliderLength));
         }
@@ -234,7 +231,7 @@ return function module() {
           active = 2;
         }
         var pos = Math.max(0, Math.min(sliderLength, d3.event.x));
-        moveHandle(scale.invert ? 
+        moveHandle(scale.invert ?
                     stepValue(scale.invert(pos / sliderLength))
                   : nearestTick(pos / sliderLength));
       }
@@ -246,7 +243,7 @@ return function module() {
           active = 2;
         }
         var pos = sliderLength - Math.max(0, Math.min(sliderLength, d3.event.y))
-        moveHandle(scale.invert ? 
+        moveHandle(scale.invert ?
                     stepValue(scale.invert(pos / sliderLength))
                   : nearestTick(pos / sliderLength));
       }
@@ -292,12 +289,12 @@ return function module() {
           handle1.style(position, newPos);
         }
       } else {
-        
+
         var width = 100 - parseFloat(newPos);
         var top = 100 - parseFloat(newPos);
 
         (position === "left") ? divRange.style("right", width + "%") : divRange.style("top", top + "%");
-        
+
         if (animate) {
           handle2.transition()
               .styleTween(position, function() { return d3.interpolate(oldPos, newPos); })
