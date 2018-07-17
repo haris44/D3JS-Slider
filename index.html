@@ -1,60 +1,19 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8" />
   <title>D3.js Slider Examples</title>
   <link rel="stylesheet" href="d3.slider.css" />
-  <style>
-
-    body {
-      font-family: Verdana,Arial,sans-serif;
-    }
-
-    h2 {
-      font-size: 1.2em;
-      margin: 60px 0 5px 0;
-    }
-
-    .wrapper {
-      width: 800px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    .wrapper > div {
-      margin: 35px 0;
-    }
-
-    #slider8 {
-      height: 250px;
-    }
-
-    #slider9 {
-      height: 250px;
-    }
-
-
-  </style>
 </head>
+
 <body>
-  <div class="wrapper">
+  <h1> Fixed slider </h1>
+  <div id="chart"></div>
 
-  	<h1>D3.js Slider Examples</h1>
-
-  	<p><a href="http://github.com/turban/d3.slider">http://github.com/turban/d3.slider</a></p>
-
-    <h2>Default slider</h2>
-    <code>d3.slider().value(25)</code>
-    <div id="slider1"></div>
-
-
-  <script src="http://d3js.org/d3.v3.min.js"></script>
+  <script src="http://d3js.org/d3.v4.min.js"></script>
   <script src="d3.slider.js"></script>
-  <script>
-
-    d3.select('#slider1').call(d3.slider().value(25));
-
-  </script>
-
+  <script src="index.js"></script>
 </body>
+
 </html>
